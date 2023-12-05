@@ -1,9 +1,19 @@
+from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
 
+Round = NewType("Round", Dict[str, int])
 
-valid_game_definition = {'red': 12, 'green': 13, 'blue': 14}
+
+@dataclass
+class Game:
+    number: int
+    rounds: List[Round]
+
+
+valid_game_definition = {"red": 12, "green": 13, "blue": 14}
+
 
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
@@ -11,40 +21,38 @@ def read_input(input_file: Path) -> List[str]:
     return [l.strip() for l in lines]
 
 
-def parse_game(line: str) -> List[List[Dict[str,int]]]:
-    game_number, game_data = line.split(':')
+def parse_game(line: str) -> Game:
+    game_number, game_data = line.split(":")
     game_holder, game_num_holder = game_number.split()
     game_num = int(game_num_holder.lstrip())
-    game_data.lstrip()
-    rounds = parse_round(game_data)
-    game = [game_num, rounds]
-    return game
-
-
-def parse_round(game_data: str) -> List[Dict[str,int]]:
-    rounds_data = game_data.split(';')
+    game_data = game_data.lstrip()
+    rounds_data = game_data.split(";")
     rounds = []
-    for round in rounds_data:
-        cubes_revealed_per_round = (round.lstrip()).split(',')
-        rounds.append(parse_reveal(cubes_revealed_per_round))
-    return rounds
+    for round_text in rounds_data:
+        rounds.append(parse_round(round_text))
+    return Game(number=game_num, rounds=rounds)
 
 
-def parse_reveal(cubes_revealed_per_round: List[str]) -> Dict[str,int]:
-    cubes = {}
-    for cubes_revealed in cubes_revealed_per_round:
-        num_cube, cube_color = (cubes_revealed.lstrip()).split()
-        num = int(num_cube.lstrip())
-        color = cube_color.lstrip()
-        cubes[color] = num
-    return cubes
+def parse_round(round_text: str) -> Round:
+    counts_by_color = {}
+    for pair in (round_text.lstrip()).split(","):
+        color, count = parse_pair(pair)
+        counts_by_color[color] = count
+    return Round(counts_by_color)
 
 
-def is_game_valid(game: List[Dict[str,int]]) -> bool:
-    return all(is_round_valid(round) for round in game) 
+def parse_pair(pair: str) -> Tuple[str, int]:
+    num_cube, cube_color = (pair.lstrip()).split()
+    num = int(num_cube.lstrip())
+    color = cube_color.lstrip()
+    return (color, num)
 
 
-def is_round_valid(round: Dict[str,int]) -> bool:
+def is_game_valid(game: Game) -> bool:
+    return all(is_round_valid(round) for round in game.rounds)
+
+
+def is_round_valid(round: Round) -> bool:
     for value in round:
         if round[value] > valid_game_definition[value]:
             return False
@@ -54,5 +62,5 @@ def is_round_valid(round: Dict[str,int]) -> bool:
 if __name__ == "__main__":
     lines = read_input(Path("inputs/input.txt"))
     games = [parse_game(line) for line in lines]
-    valid_game_numbers = [number for (number, game) in games if is_game_valid(game)]
+    valid_game_numbers = [game.number for game in games if is_game_valid(game)]
     print(sum(valid_game_numbers))

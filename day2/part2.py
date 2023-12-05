@@ -48,21 +48,21 @@ def parse_pair(pair: str) -> Tuple[str, int]:
     return (color, num)
 
 
-def min_counts_by_color(rounds: Round) -> List[int]:
-    min_counts_by_color = {"red": 0, "green": 0, "blue": 0}
-    min_counts = []
+def max_counts_by_color(rounds: Round) -> List[int]:
+    max_counts_by_color = {"red": 0, "green": 0, "blue": 0}
+    max_counts = []
     for round in rounds:
         for key in round:
-            if min_counts_by_color[key] < round[key]:
-                min_counts_by_color[key] = int(round[key])
-    for key in min_counts_by_color:
-        min_counts.append(int(min_counts_by_color[key]))
-    return min_counts
+            if max_counts_by_color[key] < round[key]:
+                max_counts_by_color[key] = int(round[key])
+    for key in max_counts_by_color:
+        max_counts.append(int(max_counts_by_color[key]))
+    return max_counts
 
 
-def power_of_game(min_counts_for_game: List[int]) -> int:
+def power_of_game(max_counts_for_game: List[int]) -> int:
     power_of_game = 1
-    for min_count in min_counts_for_game:
+    for min_count in max_counts_for_game:
         power_of_game = power_of_game * min_count
     return power_of_game
 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     lines = read_input(Path("inputs/input.txt"))
     games = [parse_game(line) for line in lines]
     powers_of_games = [
-        power_of_game(min_counts_by_color(game.rounds)) for game in games
+        power_of_game(max_counts_by_color(game.rounds)) for game in games
     ]
     # print(powers_of_games)
     print(sum(powers_of_games))

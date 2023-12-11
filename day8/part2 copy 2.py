@@ -10,33 +10,24 @@ from functools import cmp_to_key
 #     child_node_L: str
 #     child_node_R: str
 
-Network = NewType("Network", Dict[str,Tuple[str,str]])
-
 @dataclass
-class Network_Holder:
-    network: Network
+class Network:
+    nodes: Dict[str,Tuple[str,str]]
     start_nodes: List[str]
     end_nodes: List[str]
 
 @dataclass
-class CamelMap:
-    network: Network
+class Camel_Map:
+    network: Dict[str,Tuple[str,str]]
     start_nodes: List[str]
     end_nodes: List[str]
     directions: List[str]
 
 @dataclass
-class PossiblePath: 
+class Path: 
     start_node: str
     end_node: str
-
-@dataclass
-class Paths:
-    paths: Dict[int,PossiblePath]
-            # Dict['steps_taken': Path]
-    
-    def add_path(self, start_node: str, end_node: str, steps_taken: int) -> None:
-        self.paths[steps_taken] = PossiblePath(start_node=start_node, end_node=end_node)
+    steps_taken: int
 
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
@@ -50,7 +41,7 @@ def parse_node(line: str) -> List[str]:
     child_node_L, child_node_R = node_directions.split(',')
     return [parent_node, child_node_L, child_node_R]
 
-def parse_network(network_text: List[str]) -> Network_Holder:
+def parse_network(network_text: List[str]) -> Network:
     network_nodes = {}
     starting_nodes = []
     end_nodes = []
@@ -61,53 +52,49 @@ def parse_network(network_text: List[str]) -> Network_Holder:
         if parent_node[2] == 'Z':
             end_nodes.append(parent_node)
         network_nodes[parent_node] = tuple([child_node_L, child_node_R])
-    return Network_Holder(network=Network(network_nodes), start_nodes=starting_nodes, end_nodes=end_nodes)
+    return Network(nodes=network_nodes, start_nodes=starting_nodes, end_nodes=end_nodes)
 
-def get_camel_map(lines) -> CamelMap:
+def get_camel_map(lines) -> Camel_Map:
     network = parse_network(lines[2:-1])
     start_nodes = network.start_nodes
     end_nodes = network.end_nodes
     directions = [direction for direction in lines[0]]
-    return CamelMap(network=network.network, start_nodes=start_nodes, end_nodes=end_nodes,directions=directions)
+    return Camel_Map(network=network.nodes, start_nodes=start_nodes, end_nodes=end_nodes,directions=directions)
 
-def steps_taken(camel_map: CamelMap, paths) -> Paths:
+def steps_taken(camel_map: Camel_Map) -> List[List[int]]:
     start_nodes = camel_map.start_nodes
+    steps_taken_by_start_nodes= []
     for start_node in start_nodes:
-        steps_taken_to_ZZZ = steps_taken_to_end_node(start_node, 'ZZZ', camel_map, paths, 0)
-        pprint(paths)
-    return paths
+        steps_by_start_node = steps_taken_by_start_node(start_node, camel_map)
+        steps_taken_by_start_nodes.append(steps_by_start_node)
+        print(steps_taken)
+    return steps_taken_by_start_nodes
 
-# def steps_taken_by_start_node(start_node: str, camel_map) -> List[int]:
-#     end_nodes = camel_map.end_nodes
-#     steps_to_end_nodes = []
-#     for end_node in end_nodes:
-#         steps_to_end_node = steps_taken_by_end_node(start_node, end_node, camel_map, 0)
-#         steps_to_end_nodes.append(steps_to_end_node)
-#     print(steps_to_end_nodes)
-#     return steps_to_end_nodes
-
-def steps_taken_to_end_node(start_node: str, end_node: str, camel_map: CamelMap, paths: Paths, steps_taken: int) -> int:
-    network = camel_map.network
+def steps_taken_by_start_node(start_node: str, camel_map) -> List[int]:
     end_nodes = camel_map.end_nodes
+    steps_to_end_nodes = []
+    for end_node in end_nodes:
+        steps_to_end_node = steps_taken_by_end_node(start_node, end_node, camel_map, 0)
+        steps_to_end_nodes.append(steps_to_end_node)
+    print(steps_to_end_nodes)
+    return steps_to_end_nodes
+
+def steps_taken_by_end_node(start_node: str, end_node: str, camel_map: Camel_Map, steps_taken: int) -> int:
+    network = camel_map.network
     next_node = start_node
     for direction in camel_map.directions:
         print(next_node)
         # print(network[next_node])
         # print(direction)
         if next_node == end_node:
-            paths.add_path(start_node, end_node, steps_taken)
             return steps_taken
-        elif next_node in end_nodes:
-            paths.add_path(start_node, next_node, steps_taken)
-            next_node = get_next_node(network[next_node], direction)
-            steps_taken += 1
         else:
             next_node = get_next_node(network[next_node], direction)
             steps_taken += 1
     # print(next_node)
     if next_node != end_node:
         # print("looping through again")
-        steps_taken = steps_taken_to_end_node(next_node, end_node, camel_map, paths, steps_taken)
+        steps_taken = steps_taken_by_end_node(next_node, end_node, camel_map, steps_taken)
     return steps_taken
         
     

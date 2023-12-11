@@ -4,9 +4,6 @@ from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
 from functools import cmp_to_key
 
-# @dataclass
-# class SequenceTree:
-#     sequences = List[List[int]]
 
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
@@ -31,21 +28,21 @@ def make_sequence_tree(sequence: List[int]) -> List[List[int]]:
 def get_sub_sequence(sequence: List[int]) -> List[int]:
     return [(sequence[i+1] - sequence[i]) for i, num in enumerate(sequence) if i+1 != len(sequence)]
 
-def predict_next_value_in_sequence(sequence_tree: List[List[int]], last_value: int) -> List[List[int]]:
-    next_value = 0
+def predict_previous_value_in_sequence(sequence_tree: List[List[int]], first_value: int) -> List[List[int]]:
+    previous_value = 0
     for sequence in sequence_tree:
-        next_value = last_value + sequence[-1]
-        sequence.append(next_value)
-        last_value = sequence[-1]
+        previous_value = sequence[0] - (first_value)
+        sequence.insert(0, previous_value)
+        first_value = sequence[0]
     return sequence_tree
 
-def get_predicted_values(oasis_and_sand_sensor_data: List[List[int]]) -> List[int]:
+def get_predicted_previous_values(oasis_and_sand_sensor_data: List[List[int]]) -> List[int]:
     predicted_values = []
     for sequence in oasis_and_sand_sensor_data:
         sequence_tree = make_sequence_tree(sequence)
-        sequence_tree = predict_next_value_in_sequence(sequence_tree, 0)
-        next_value = sequence_tree[-1][-1]
-        predicted_values.append(next_value)
+        sequence_tree = predict_previous_value_in_sequence(sequence_tree, 0)
+        previous_value = sequence_tree[-1][0]
+        predicted_values.append(previous_value)
     return predicted_values
 
 if __name__ == "__main__":
@@ -54,5 +51,6 @@ if __name__ == "__main__":
     oasis_and_sand_sensor_data = [parse_sequence(line) for line in lines]
     # pprint(oasis_and_sand_sensor_data)
 
-    predicted_values = get_predicted_values(oasis_and_sand_sensor_data)
-    print(sum(predicted_values))
+    predicted_previous_values = get_predicted_previous_values(oasis_and_sand_sensor_data)
+    # pprint(predicted_previous_values)
+    print(sum(predicted_previous_values))

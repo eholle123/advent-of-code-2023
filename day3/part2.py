@@ -52,9 +52,6 @@ class Symbol:
     symbol: str
 
 
-Gears = NewType("Gears", Dict[Tuple[int, int], List[int]])
-
-
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
         lines = f.readlines()
@@ -97,32 +94,24 @@ def parse_schematic(lines: List[str]) -> Schematic:
     return Schematic(numbers=numbers, symbols=symbols)
 
 
-def get_gears(schematic: Schematic) -> Gears:
-    gears = {}
-    for symbol_position in schematic.symbols.keys():
-        rows = range(symbol_position[0] - 1, symbol_position[0] + 2)
-        cols = range(symbol_position[1] - 1, symbol_position[1] + 2)
-        symbol_buffer = [position for position in itertools.product(rows, cols)]
-        gear_numbers = []
-        for number in schematic.numbers:
-            if is_number_touching_gear(number, symbol_buffer):
-                gear_numbers.append(number.value)
-        if len(gear_numbers) == 2:
-            gears[symbol_position] = gear_numbers
-    return Gears(gears)
+def get_gear_ratios(schematic: Schematic) -> List[int]:
+    gear_ratios = []
+    for symbol_position, symbol in schematic.symbols.items():
+        if symbol == "*":
+            gear_numbers = []
+            for number in schematic.numbers:
+                if is_gear_adjacent(number, symbol_position):
+                    gear_numbers.append(number.value)
+            if len(gear_numbers) == 2:
+                gear_ratios.append(gear_numbers[0] * gear_numbers[1])
+    return gear_ratios
 
 
-def is_number_touching_gear(
-    number: SchematicNumber, symbol_buffer: List[Tuple[int, int]]
-) -> bool:
-    number_positions = [
-        number_position
-        for number_position in itertools.product(
-            [number.row], [col for col in range(number.col, number.col + number.length)]
-        )
-    ]
-    for number_position in number_positions:
-        if number_position in symbol_buffer:
+def is_gear_adjacent(number: SchematicNumber, gear_position: Tuple[int, int]) -> bool:
+    rows = range(number.row - 1, number.row + 2)
+    columns = range(number.col - 1, number.col + number.length + 1)
+    for position in itertools.product(rows, columns):
+        if position == gear_position:
             return True
     return False
 
@@ -136,10 +125,7 @@ if __name__ == "__main__":
     schematic = parse_schematic(lines)
     # pprint(schematic)
 
-    gears = get_gears(schematic)
+    gear_ratios = get_gear_ratios(schematic)
     # print(gears)
 
-    result = 0
-    for gear in gears.keys():
-        result += gears[gear][0] * gears[gear][1]
-    print(result)
+    print(sum(gear_ratios))

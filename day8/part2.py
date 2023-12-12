@@ -8,13 +8,23 @@ from pprint import pprint
 from functools import cmp_to_key
 
 
-# @dataclass 
+# @dataclass
 # class Node:
-#     parent_node: str
-#     child_node_L: str
-#     child_node_R: str
+#     name: str
+#     left: str
+#     right: str
 
-Network = NewType("Network", Dict[str,Tuple[str,str]])
+#     def next(self, direction: str) -> str:
+#         if direction == "L":
+#             return self.left
+#         elif direction == "R":
+#             return self.right
+#         else:
+#             raise ValueError(f"Invalid direction '{direction}'. Must be 'L' or 'R'.")
+
+
+Network = NewType("Network", Dict[str, Tuple[str, str]])
+
 
 @dataclass
 class Network_Holder:
@@ -22,37 +32,45 @@ class Network_Holder:
     start_nodes: List[str]
     end_nodes: List[str]
 
+
 @dataclass
 class CamelMap:
     network: Network
     start_nodes: List[str]
     end_nodes: List[str]
-    directions: List[str]
+    directions: str
+
 
 @dataclass
-class PossiblePath: 
+class PossiblePath:
     start_node: str
     end_node: str
 
+
 @dataclass
 class Paths:
-    paths: Dict[int,PossiblePath]
-            # Dict['steps_taken': Path]
-    
+    paths: Dict[int, PossiblePath]
+    # Dict['steps_taken': Path]
+
     def add_path(self, start_node: str, end_node: str, steps_taken: int) -> None:
         self.paths[steps_taken] = PossiblePath(start_node=start_node, end_node=end_node)
+
 
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
         lines = f.readlines()
     return [l.strip() for l in lines]
 
+
 def parse_node(line: str) -> List[str]:
     parent_node, node_directions = (line.lstrip()).split("=")
-    parent_node = parent_node.replace(' ', '')
-    node_directions = ((node_directions.replace('(', ' ')).replace(')', ' ')).replace(' ', '')
-    child_node_L, child_node_R = node_directions.split(',')
+    parent_node = parent_node.replace(" ", "")
+    node_directions = ((node_directions.replace("(", " ")).replace(")", " ")).replace(
+        " ", ""
+    )
+    child_node_L, child_node_R = node_directions.split(",")
     return [parent_node, child_node_L, child_node_R]
+
 
 def parse_network(network_text: List[str]) -> Network_Holder:
     network_nodes = {}
@@ -60,26 +78,38 @@ def parse_network(network_text: List[str]) -> Network_Holder:
     end_nodes = []
     for node_text in network_text:
         parent_node, child_node_L, child_node_R = parse_node(node_text)
-        if parent_node[2] == 'A':
+        if parent_node[2] == "A":
             starting_nodes.append(parent_node)
-        if parent_node[2] == 'Z':
+        if parent_node[2] == "Z":
             end_nodes.append(parent_node)
         network_nodes[parent_node] = tuple([child_node_L, child_node_R])
-    return Network_Holder(network=Network(network_nodes), start_nodes=starting_nodes, end_nodes=end_nodes)
+    return Network_Holder(
+        network=Network(network_nodes), start_nodes=starting_nodes, end_nodes=end_nodes
+    )
+
 
 def get_camel_map(lines) -> CamelMap:
     network = parse_network(lines[2:-1])
     start_nodes = network.start_nodes
     end_nodes = network.end_nodes
-    directions = [direction for direction in lines[0]]
-    return CamelMap(network=network.network, start_nodes=start_nodes, end_nodes=end_nodes,directions=directions)
+    directions = lines[0]
+    return CamelMap(
+        network=network.network,
+        start_nodes=start_nodes,
+        end_nodes=end_nodes,
+        directions=directions,
+    )
+
 
 def steps_taken(camel_map: CamelMap, paths) -> Paths:
     start_nodes = camel_map.start_nodes
     for start_node in start_nodes:
-        steps_taken_to_ZZZ = steps_taken_to_end_node(start_node, 'ZZZ', camel_map, paths, 0)
+        steps_taken_to_ZZZ = steps_taken_to_end_node(
+            start_node, "ZZZ", camel_map, paths, 0
+        )
         pprint(paths)
     return paths
+
 
 # def steps_taken_by_start_node(start_node: str, camel_map) -> List[int]:
 #     end_nodes = camel_map.end_nodes
@@ -90,7 +120,10 @@ def steps_taken(camel_map: CamelMap, paths) -> Paths:
 #     print(steps_to_end_nodes)
 #     return steps_to_end_nodes
 
-def steps_taken_to_end_node(start_node: str, end_node: str, camel_map: CamelMap, paths: Paths, steps_taken: int) -> int:
+
+def steps_taken_to_end_node(
+    start_node: str, end_node: str, camel_map: CamelMap, paths: Paths, steps_taken: int
+) -> int:
     network = camel_map.network
     end_nodes = camel_map.end_nodes
     next_node = start_node
@@ -111,13 +144,14 @@ def steps_taken_to_end_node(start_node: str, end_node: str, camel_map: CamelMap,
     # print(next_node)
     if next_node != end_node:
         # print("looping through again")
-        steps_taken = steps_taken_to_end_node(next_node, end_node, camel_map, paths, steps_taken)
+        steps_taken = steps_taken_to_end_node(
+            next_node, end_node, camel_map, paths, steps_taken
+        )
     return steps_taken
-        
-    
 
-def get_next_node(current_node: Tuple[str,str], direction: str) -> str:
-    if direction == 'L':
+
+def get_next_node(current_node: Tuple[str, str], direction: str) -> str:
+    if direction == "L":
         next_node = current_node[0]
     else:
         next_node = current_node[1]
@@ -130,7 +164,7 @@ if __name__ == "__main__":
     # directions = [direction for direction in lines[0]]
     # network = parse_network(lines[2:-1])
     camel_map = get_camel_map(lines)
-    
+
     print()
     pprint(camel_map)
     print()

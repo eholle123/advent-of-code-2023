@@ -1,8 +1,12 @@
+import networkx as nx
+import itertools
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
 from functools import cmp_to_key
+
 
 # @dataclass 
 # class Node:
@@ -127,6 +131,7 @@ if __name__ == "__main__":
     # network = parse_network(lines[2:-1])
     camel_map = get_camel_map(lines)
     
+    print()
     pprint(camel_map)
     print()
 

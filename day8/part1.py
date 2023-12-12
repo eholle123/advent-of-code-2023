@@ -1,3 +1,7 @@
+from __future__ import annotations
+import networkx as nx
+import itertools
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple, NewType
@@ -5,29 +9,19 @@ from pprint import pprint
 from functools import cmp_to_key
 
 
-# @dataclass
-# class Hand:
-#     cards: str
-#     bid: int
-#     hand_type: str
-
-#     @property
-#     def hand_type_sort_value(self) -> int:
-#         return hand_types[self.hand_type]
-
-#     @property
-#     def sort_key(self) -> Tuple[int, List[int]]:
-#         return (self.hand_type_sort_value, [camel_cards[card] for card in self.cards])
-
-
 @dataclass
 class Node:
-    parent_node: str
-    child_node_L: str
-    child_node_R: str
+    name: str
+    left: str
+    right: str
 
-
-# Node = NewType("Node", Dict['str', Tuple[str, str]])
+    def next(self, direction: str) -> str:
+        if direction == "L":
+            return self.left
+        elif direction == "R":
+            return self.right
+        else:
+            raise ValueError(f"Invalid direction '{direction}'. Must be 'L' or 'R'.")
 
 
 def read_input(input_file: Path) -> List[str]:
@@ -36,79 +30,47 @@ def read_input(input_file: Path) -> List[str]:
     return [l.strip() for l in lines]
 
 
-# def parse_node(line: str) -> Node:
-#     parent_node, node_directions = (line.lstrip()).split("=")
-#     parent_node = parent_node.replace(' ', '')
-#     node_directions = ((node_directions.replace('(', ' ')).replace(')', ' ')).replace(' ', '')
-#     child_node_L, child_node_R = node_directions.split(',')
-#     return Node(parent_node=parent_node, child_node_L=child_node_L, child_node_R=child_node_R)
+def parse_node(line: str) -> Node:
+    name, children = (line.lstrip()).split("=")
+    name = name.replace(" ", "")
+    children = ((children.replace("(", " ")).replace(")", " ")).replace(" ", "")
+    left, right = children.split(",")
+    return Node(name=name, left=left, right=right)
 
 
-def parse_node(line: str) -> List[str]:
-    parent_node, node_directions = (line.lstrip()).split("=")
-    parent_node = parent_node.replace(" ", "")
-    node_directions = ((node_directions.replace("(", " ")).replace(")", " ")).replace(
-        " ", ""
-    )
-    child_node_L, child_node_R = node_directions.split(",")
-    return [parent_node, child_node_L, child_node_R]
-
-
-def parse_network(network_text: List[str]) -> Dict[str, Tuple[str, str]]:
+def parse_network(network_text: List[str]) -> Dict[str, Node]:
     network = {}
     for node_text in network_text:
-        parent_node, child_node_L, child_node_R = parse_node(node_text)
-        network[parent_node] = tuple([child_node_L, child_node_R])
+        node = parse_node(node_text)
+        network[node.name] = node
     return network
 
 
-def get_how_many_steps_taken(
+def count_steps(
     start_node: str,
     end_node: str,
-    network: Dict[str, Tuple[str, str]],
-    directions: List[str],
-    steps_taken: int,
+    network: Dict[str, Node],
+    directions: str,
 ) -> int:
-    direction = directions[0]
-    next_node = start_node
-    for direction in directions:
-        # print(next_node)
-        # print(network[next_node])
-        # print(direction)
-        if next_node == end_node:
-            return steps_taken
-        else:
-            next_node = get_next_node(network[next_node], direction, network)
-            steps_taken += 1
-    # print(next_node)
-    if next_node != end_node:
-        # print("looping through again")
-        steps_taken = get_how_many_steps_taken(
-            next_node, end_node, network, directions, steps_taken
-        )
-    return steps_taken
-
-
-def get_next_node(
-    current_node: Tuple[str, str], direction: str, network: Dict[str, Tuple[str, str]]
-) -> str:
-    if direction == "L":
-        next_node = current_node[0]
-    else:
-        next_node = current_node[1]
-    return next_node
+    steps = 0
+    node = network[start_node]
+    directions_cycle = itertools.cycle(directions)
+    while node.name != end_node:
+        node = network[node.next(next(directions_cycle))]
+        steps += 1
+    return steps
 
 
 if __name__ == "__main__":
     # lines = read_input(Path("inputs/test_input_equals_2_steps.txt"))
     # lines = read_input(Path("inputs/test_input_equals_6_steps.txt"))
     lines = read_input(Path("inputs/input.txt"))
-    directions = [direction for direction in lines[0]]
-    network = parse_network(lines[2:-1])
+    directions = lines[0]
+    network = parse_network(lines[2:])
 
     # pprint(directions)
     # print()
     # pprint(network)
 
-    steps_taken = get_how_many_steps_taken("AAA", "ZZZ", network, directions, 0)
+    steps_taken = count_steps("AAA", "ZZZ", network, directions)
     print(steps_taken)

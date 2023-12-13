@@ -1,17 +1,11 @@
 from __future__ import annotations
 import networkx as nx
-import itertools
-import re
-import numpy as np
-import matplotlib.pyplot as plt
 import time
 from shapely import Polygon, Point
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
-from functools import cmp_to_key
-from math import lcm
 from icecream import ic
 
 """
@@ -217,15 +211,14 @@ def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
 
 if __name__ == "__main__":
     start_time = time.time()
-    """
-    Test Inputs:
+
     # lines = read_input(Path("inputs/part1/test_simple_square_loop_only.txt"))
     # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop.txt"))
     # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop_squeeze_past.txt"))
     # lines = read_input(Path("inputs/part2/test_input_8_tiles_in_loop.txt"))
-    # lines = read_input(Path("inputs/part2/test_input_10_tiles_in_loop.txt"))
-    """
-    lines = read_input(Path("inputs/input.txt"))
+    lines = read_input(Path("inputs/part2/test_input_10_tiles_in_loop.txt"))
+
+    # lines = read_input(Path("inputs/input.txt"))
 
     tiles = parse_tiles(lines)
     G = build_graph(tiles)
@@ -235,11 +228,13 @@ if __name__ == "__main__":
     connect_pipes_in_graph(G, tiles)
     cycle = nx.find_cycle(G, source=(start_tile.row, start_tile.col))
 
+    # Have to construct both a polygon and points to see if a tile is inside loop.
     polygon = Polygon([vertice[0] for vertice in cycle])
     points = [Point(tile.row, tile.col) for tile in tiles]
-    tiles_within_polygon = [point for point in points if point.within(polygon)]
 
+    tiles_within_polygon = [point for point in points if point.within(polygon)]
     ic(len(tiles_within_polygon))
+
     print("--- %s seconds ---" % round((time.time() - start_time), 2))
 
     """

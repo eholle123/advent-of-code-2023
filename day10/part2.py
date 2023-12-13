@@ -4,6 +4,7 @@ import itertools
 import re
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 from shapely import Polygon, Point
 from dataclasses import dataclass
 from pathlib import Path
@@ -118,6 +119,7 @@ class Tile:
     col: int  # things that don't have a default have to go above things that do
     pipe: Optional[Pipe] = None
     is_not_dot: bool = True
+    is_not_in_cycle: bool = True
     start_tile: bool = False
 
 
@@ -215,11 +217,13 @@ def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     # lines = read_input(Path("inputs/part1/test_simple_square_loop_only.txt"))
     # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop.txt"))
     # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop_squeeze_past.txt"))
     # lines = read_input(Path("inputs/part2/test_input_8_tiles_in_loop.txt"))
     # lines = read_input(Path("inputs/part2/test_input_10_tiles_in_loop.txt"))
+
     lines = read_input(Path("inputs/input.txt"))
 
     tiles = parse_tiles(lines)
@@ -231,11 +235,30 @@ if __name__ == "__main__":
     cycle = nx.find_cycle(G, source=(start_tile.row, start_tile.col))
 
     polygon = Polygon([vertice[0] for vertice in cycle])
-    # points = [Point(tile.row, tile.col) for tile in tiles if tile.is_not_dot is False]
+
+    """
+    Correct answer for part 2: 281 tiles within polygon.
+    All variations return correct answer.
+    """
+
+    """variation 1: takes 97.68 seconds to run"""
+    # points1 = [Point(tile.row, tile.col) for tile in tiles if ((tile.row, tile.col) not in cycle) and ((Point(tile.row, tile.col)).within(polygon))]
+    # ic(len(points1))
+    # print("--- %s seconds ---" % round((time.time() - start_time), 2))
+
+
+    """variation 2: takes 99.29 seconds to run"""
+    # points2 = [Point(tile.row, tile.col) for tile in tiles if ((tile.row, tile.col) not in cycle)]
+    # count_tiles_within = 0
+    # for point in points2:
+    #     if point.within(polygon):
+    #         count_tiles_within += 1
+    # ic(count_tiles_within)
+    # print("--- %s seconds ---" % round((time.time() - start_time), 2))
+
+
+    """variation 3 (initial solution): 93.49 seconds to run"""
     points = [Point(tile.row, tile.col) for tile in tiles]
-    # dots_within_polygon = [point for point in points if point.within(polygon)]
     tiles_within_polygon = [point for point in points if point.within(polygon)]
-
-    ic(len(tiles_within_polygon))  # correct answer for part 2: 281 tiles within polygon
-
-    # nx.drawing.nx_agraph.write_dot(G, "tiles.dot")
+    ic(len(tiles_within_polygon))  
+    print("--- %s seconds ---" % round((time.time() - start_time), 2))

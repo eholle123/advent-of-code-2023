@@ -27,62 +27,8 @@ pipe_types = {"|": {"north": True, "east": False, "south": True, "west": False},
                 "L": {"north": True, "east": True, "south": False, "west": False},
                 "J": {"north": True, "east": False, "south": False, "west": True},
                 "7": {"north": False, "east": False, "south": True, "west": True},
-                "F": {"north": False, "east": True, "south": True, "west": False}
-                }
-"""
-"|" can connect to:
-    only pipes with same col num:
-        if row -1 (pipe above "|") and "south" == True for above pipe:
-            connects = ["|", "7", "F"]
-        if row +1 (pipe below "|") and "north" == True for below pipe:
-            connects = ["|", "L", "J"]
-"-" can connect to:
-    only pipes with same row num:
-        if col -1 (pipe left "-") and "east" == True for left pipe:
-            connects = ["-", "L", "F"]
-        if col +1 (pipe right "-") and "west" == True for right pipe:
-            connects = ["-", "J", "7"] 
-"L" can connect to:
-    only to pipes directly above or directly right:
-        if row -1 (pipe above "L") and "south" == True for above pipe:
-            connects = ["|", "7", "F"]
-        if col +1 (pipe right "L") and "west" == True for right pipe:
-            connects = ["-", "J", "7"]
-"J" can connect to:
-    only to pipes directly above or directly left:
-        if row -1 (pipe above "J") and "south" == True for above pipe:
-            connects = ["|", "7", "F"]
-        if col -1 (pipe left "J") and "east" == True for left pipe:
-            connects = ["-", "L", "F"]
-"7" can connect to:
-    only to pipes directly left or directly below:
-        if col -1 (pipe left "7") and "east" == True for left pipe:
-            connects = ["-", "L", "F"]
-        if row +1 (pipe below "7") and "north" == True for below pipe:
-            connects = ["|", "L", "J"]
-"F" can connect to:
-    only to pipes directly right or directly below:
-        if col +1 (pipe right "L") and "west" == True for right pipe:
-            connects = ["-", "J", "7"]
-        if row +1 (pipe below "F") and "north" == True for below pipe:
-            connects = ["|", "L", "J"]
-"S" == pipe such that:
-    let "S": {"north": True, "east": True, "south": True, "west": True}
-    if pipe above has "south" == False:
-        "S"["north"] = False
-        "S" in ["-", "7", "F"]
-    if pipe below has "north" == False:
-        "S"["south"] = False
-        "S" in ["-", "L", "J"]
-    if pipe right has "west" == False:
-        "S"["east"] = False
-        "S" in ["-", "7", "J"]
-    if pipe left has "east" == False:
-        "S"["west"] = False
-        "S" in ["-", "L", "F"]
-    if all("S".values):
-        try every shape?
-"""
+                "F": {"north": False, "east": True, "south": True, "west": False}}
+
 @dataclass
 class Connections:
     north: bool
@@ -116,25 +62,7 @@ class Connections:
 class Pipe:
     name: str
     connections: Connections
-
-"""
-    def set_pipe_name(self: Pipe) -> None:
-        connections = self.connections
-        if all([connections.north == True, connections.south == True, connections.east == False, connections.west == False]):
-            self.name = "|"
-        if all([connections.north == False, connections.south == False, connections.east == True, connections.west == True]):
-            self.name = "-"
-        if all([connections.north == True, connections.south == False, connections.east == True, connections.west == False]):
-            self.name = "L"
-        if all([connections.north == True, connections.south == False, connections.east == False, connections.west == True]):
-            self.name = "J"
-        if all([connections.north == False, connections.south == True, connections.east == False, connections.west == True]):
-            self.name = "7"
-        if all([connections.north == False, connections.south == True, connections.east == True, connections.west == False]):
-            self.name = "F"
-"""
-        
-        
+      
 
 @dataclass
 class Tile:
@@ -226,17 +154,15 @@ def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
 
 
 if __name__ == "__main__":
-    # lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop_only.txt"))
-    # lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop.txt"))
-    # lines = read_input(Path("inputs/finding_loop_tests/test_complex_loop.txt"))
+    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_simple_square_loop_only.txt"))
+    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_simple_square_loop.txt"))
+    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_complex_loop.txt"))
     lines = read_input(Path("inputs/input.txt"))
     tiles = parse_tiles(lines)
-    # pprint(tiles)
 
     G = build_graph(tiles)
     
     start_tile = determine_start_tile(G)
-    # print(start_tile)
     G.add_node((start_tile.row, start_tile.col), tile=start_tile)
     connect_pipes_in_graph(G, tiles)
     cycle = nx.find_cycle(G, source=(start_tile.row, start_tile.col))
@@ -244,7 +170,6 @@ if __name__ == "__main__":
     # pprint(str(G))
     max_distance = len(cycle) // 2
     print(max_distance)
-
 
 
     nx.drawing.nx_agraph.write_dot(G, "tiles.dot")

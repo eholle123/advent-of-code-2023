@@ -27,9 +27,7 @@ pipe_types = {"|": {"north": True, "east": False, "south": True, "west": False},
                 "L": {"north": True, "east": True, "south": False, "west": False},
                 "J": {"north": True, "east": False, "south": False, "west": True},
                 "7": {"north": False, "east": False, "south": True, "west": True},
-                "F": {"north": False, "east": True, "south": True, "west": False},
-                # ".": {"north": False, "east": False, "south": False, "west": False},
-                # "S": {"north": True, "east": True, "south": True, "west": True}
+                "F": {"north": False, "east": True, "south": True, "west": False}
                 }
 """
 "|" can connect to:
@@ -113,11 +111,13 @@ class Connections:
         raise ValueError("Cannot determine pipe name for {self}.")
 
 
+
 @dataclass
 class Pipe:
     name: str
     connections: Connections
 
+"""
     def set_pipe_name(self: Pipe) -> None:
         connections = self.connections
         if all([connections.north == True, connections.south == True, connections.east == False, connections.west == False]):
@@ -132,7 +132,7 @@ class Pipe:
             self.name = "7"
         if all([connections.north == False, connections.south == True, connections.east == True, connections.west == False]):
             self.name = "F"
-
+"""
         
         
 
@@ -202,20 +202,51 @@ def determine_start_tile(graph: nx.Graph) -> Tile:
     start_tile = Tile(row=start_node[0], col=start_node[1], pipe=start_pipe, start_tile=True)
     return start_tile
 
+def valid_connection_east(pipe_connections: Connections, pipe_east_connections: Connections) -> bool:
+    return (pipe_connections.east and pipe_east_connections.west)
+
+def valid_connection_south(pipe_connections: Connections, pipe_south_connections: Connections) -> bool:
+    return (pipe_connections.south and pipe_south_connections.north)
+
+def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
+    for tile in tiles:
+        position = (tile.row, tile.col)
+        position_east = (tile.row, tile.col + 1)
+        position_south = (tile.row + 1, tile.col)
+        connections = G.nodes[position]["tile"].pipe.connections
+        if (node_data_east := G.nodes.get(position_east)):
+            connections_east = node_data_east["tile"].pipe.connections
+            if (connections.east and connections_east.west):
+                G.add_edge(position, position_east)
+        if (node_data_south := G.nodes.get(position_south)):
+            connections_south = node_data_south["tile"].pipe.connections
+            if (connections.south and connections_south.north):
+                G.add_edge(position, position_south)
+    return G
+
 
 if __name__ == "__main__":
-    lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop_only.txt"))
+    # lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop_only.txt"))
     # lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop.txt"))
     # lines = read_input(Path("inputs/finding_loop_tests/test_complex_loop.txt"))
-    # lines = read_input(Path("inputs/input.txt"))
+    lines = read_input(Path("inputs/input.txt"))
     tiles = parse_tiles(lines)
     # pprint(tiles)
 
     G = build_graph(tiles)
     
     start_tile = determine_start_tile(G)
-    print(start_tile)
+    # print(start_tile)
     G.add_node((start_tile.row, start_tile.col), tile=start_tile)
-    print(G)
+    connect_pipes_in_graph(G, tiles)
+    cycle = nx.find_cycle(G, source=(start_tile.row, start_tile.col))
+    # ic(cycle)
+    # pprint(str(G))
+    max_distance = len(cycle) // 2
+    print(max_distance)
+
+
+
     nx.drawing.nx_agraph.write_dot(G, "tiles.dot")
+    
 

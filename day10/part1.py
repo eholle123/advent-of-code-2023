@@ -154,9 +154,9 @@ def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
 
 
 if __name__ == "__main__":
-    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_simple_square_loop_only.txt"))
-    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_simple_square_loop.txt"))
-    # lines = read_input(Path("inputs/part1/finding_loop_tests/test_complex_loop.txt"))
+    # lines = read_input(Path("inputs/part1/test_simple_square_loop_only.txt"))
+    # lines = read_input(Path("inputs/part1/test_simple_square_loop.txt"))
+    # lines = read_input(Path("inputs/part1/test_complex_loop.txt"))
     lines = read_input(Path("inputs/input.txt"))
     tiles = parse_tiles(lines)
 

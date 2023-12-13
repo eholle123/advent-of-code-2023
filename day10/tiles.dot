@@ -1,60 +1,571 @@
 strict graph "" {
-	"(0, 0)"	[tile="Tile(row=0, col=0, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(0, 0)"	[tile="Tile(row=0, col=0, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(0, 1)"	[tile="Tile(row=0, col=1, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(1, 0)"	[tile="Tile(row=1, col=0, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(0, 2)"	[tile="Tile(row=0, col=2, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(0, 0)" -- "(1, 0)";
+	"(0, 1)"	[tile="Tile(row=0, col=1, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(0, 3)"	[tile="Tile(row=0, col=3, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(0, 2)"	[tile="Tile(row=0, col=2, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(0, 4)"	[tile="Tile(row=0, col=4, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(0, 1)" -- "(0, 2)";
+	"(1, 1)"	[tile="Tile(row=1, col=1, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(1, 0)"	[tile="Tile(row=1, col=0, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(0, 1)" -- "(1, 1)";
+	"(1, 2)"	[tile="Tile(row=1, col=2, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(1, 1)"	[tile="Tile(row=1, col=1, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+	"(0, 2)" -- "(1, 2)";
+	"(0, 3)"	[tile="Tile(row=0, col=3, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 4)"	[tile="Tile(row=0, col=4, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
 start_tile=True)"];
-	"(1, 2)"	[tile="Tile(row=1, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+	"(0, 3)" -- "(0, 4)";
+	"(1, 3)"	[tile="Tile(row=1, col=3, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(1, 1)" -- "(1, 2)";
-	"(2, 1)"	[tile="Tile(row=2, col=1, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+	"(0, 3)" -- "(1, 3)";
+	"(1, 4)"	[tile="Tile(row=1, col=4, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 4)" -- "(1, 4)";
+	"(0, 5)"	[tile="Tile(row=0, col=5, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 6)"	[tile="Tile(row=0, col=6, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 5)" -- "(0, 6)";
+	"(1, 5)"	[tile="Tile(row=1, col=5, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 5)" -- "(1, 5)";
+	"(1, 6)"	[tile="Tile(row=1, col=6, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 6)" -- "(1, 6)";
+	"(0, 7)"	[tile="Tile(row=0, col=7, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 8)"	[tile="Tile(row=0, col=8, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 7)" -- "(0, 8)";
+	"(1, 7)"	[tile="Tile(row=1, col=7, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 7)" -- "(1, 7)";
+	"(1, 8)"	[tile="Tile(row=1, col=8, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 8)" -- "(1, 8)";
+	"(0, 9)"	[tile="Tile(row=0, col=9, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 10)"	[tile="Tile(row=0, col=10, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 9)" -- "(0, 10)";
+	"(1, 9)"	[tile="Tile(row=1, col=9, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 9)" -- "(1, 9)";
+	"(1, 10)"	[tile="Tile(row=1, col=10, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 10)" -- "(1, 10)";
+	"(0, 11)"	[tile="Tile(row=0, col=11, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 12)"	[tile="Tile(row=0, col=12, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 11)" -- "(0, 12)";
+	"(1, 11)"	[tile="Tile(row=1, col=11, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 11)" -- "(1, 11)";
+	"(1, 12)"	[tile="Tile(row=1, col=12, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 12)" -- "(1, 12)";
+	"(0, 13)"	[tile="Tile(row=0, col=13, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 14)"	[tile="Tile(row=0, col=14, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 13)" -- "(0, 14)";
+	"(1, 13)"	[tile="Tile(row=1, col=13, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 13)" -- "(1, 13)";
+	"(1, 14)"	[tile="Tile(row=1, col=14, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 14)" -- "(1, 14)";
+	"(0, 15)"	[tile="Tile(row=0, col=15, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 16)"	[tile="Tile(row=0, col=16, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 15)" -- "(0, 16)";
+	"(1, 15)"	[tile="Tile(row=1, col=15, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 15)" -- "(1, 15)";
+	"(0, 17)"	[tile="Tile(row=0, col=17, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 16)" -- "(0, 17)";
+	"(0, 18)"	[tile="Tile(row=0, col=18, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 17)" -- "(0, 18)";
+	"(0, 19)"	[tile="Tile(row=0, col=19, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 18)" -- "(0, 19)";
+	"(1, 19)"	[tile="Tile(row=1, col=19, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(0, 19)" -- "(1, 19)";
+	"(2, 1)"	[tile="Tile(row=2, col=1, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
 	"(1, 1)" -- "(2, 1)";
-	"(1, 3)"	[tile="Tile(row=1, col=3, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
-start_tile=False)"];
 	"(1, 2)" -- "(1, 3)";
-	"(2, 3)"	[tile="Tile(row=2, col=3, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+	"(2, 4)"	[tile="Tile(row=2, col=4, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(1, 3)" -- "(2, 3)";
-	"(1, 4)"	[tile="Tile(row=1, col=4, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(1, 4)" -- "(2, 4)";
+	"(2, 5)"	[tile="Tile(row=2, col=5, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(2, 0)"	[tile="Tile(row=2, col=0, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(1, 5)" -- "(2, 5)";
+	"(2, 6)"	[tile="Tile(row=2, col=6, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(3, 1)"	[tile="Tile(row=3, col=1, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+	"(1, 6)" -- "(2, 6)";
+	"(2, 7)"	[tile="Tile(row=2, col=7, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(2, 1)" -- "(3, 1)";
-	"(2, 2)"	[tile="Tile(row=2, col=2, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(1, 7)" -- "(2, 7)";
+	"(2, 8)"	[tile="Tile(row=2, col=8, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
 start_tile=False)"];
+	"(1, 8)" -- "(2, 8)";
+	"(2, 9)"	[tile="Tile(row=2, col=9, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 9)" -- "(2, 9)";
+	"(2, 10)"	[tile="Tile(row=2, col=10, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 10)" -- "(2, 10)";
+	"(2, 11)"	[tile="Tile(row=2, col=11, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 11)" -- "(2, 11)";
+	"(2, 12)"	[tile="Tile(row=2, col=12, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 12)" -- "(2, 12)";
+	"(2, 13)"	[tile="Tile(row=2, col=13, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 13)" -- "(2, 13)";
+	"(2, 14)"	[tile="Tile(row=2, col=14, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 14)" -- "(2, 14)";
+	"(2, 15)"	[tile="Tile(row=2, col=15, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 15)" -- "(2, 15)";
+	"(1, 16)"	[tile="Tile(row=1, col=16, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 17)"	[tile="Tile(row=1, col=17, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 16)" -- "(1, 17)";
+	"(2, 16)"	[tile="Tile(row=2, col=16, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 16)" -- "(2, 16)";
+	"(1, 18)"	[tile="Tile(row=1, col=18, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(1, 17)" -- "(1, 18)";
+	"(1, 18)" -- "(1, 19)";
+	"(2, 0)"	[tile="Tile(row=2, col=0, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 2)"	[tile="Tile(row=2, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 1)" -- "(2, 2)";
+	"(2, 3)"	[tile="Tile(row=2, col=3, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 2)" -- "(2, 3)";
 	"(3, 3)"	[tile="Tile(row=3, col=3, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
 	"(2, 3)" -- "(3, 3)";
-	"(2, 4)"	[tile="Tile(row=2, col=4, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(2, 4)" -- "(2, 5)";
+	"(2, 6)" -- "(2, 7)";
+	"(3, 8)"	[tile="Tile(row=3, col=8, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(3, 0)"	[tile="Tile(row=3, col=0, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(2, 8)" -- "(3, 8)";
+	"(3, 9)"	[tile="Tile(row=3, col=9, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
 start_tile=False)"];
+	"(2, 9)" -- "(3, 9)";
+	"(3, 10)"	[tile="Tile(row=3, col=10, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 10)" -- "(3, 10)";
+	"(3, 11)"	[tile="Tile(row=3, col=11, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 11)" -- "(3, 11)";
+	"(3, 12)"	[tile="Tile(row=3, col=12, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 12)" -- "(3, 12)";
+	"(3, 13)"	[tile="Tile(row=3, col=13, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 13)" -- "(3, 13)";
+	"(2, 14)" -- "(2, 15)";
+	"(2, 17)"	[tile="Tile(row=2, col=17, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 16)" -- "(2, 17)";
+	"(2, 18)"	[tile="Tile(row=2, col=18, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 17)" -- "(2, 18)";
+	"(3, 18)"	[tile="Tile(row=3, col=18, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(2, 18)" -- "(3, 18)";
+	"(2, 19)"	[tile="Tile(row=2, col=19, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 0)"	[tile="Tile(row=3, col=0, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 1)"	[tile="Tile(row=3, col=1, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 0)" -- "(3, 1)";
+	"(4, 0)"	[tile="Tile(row=4, col=0, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 0)" -- "(4, 0)";
 	"(3, 2)"	[tile="Tile(row=3, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
 start_tile=False)"];
 	"(3, 1)" -- "(3, 2)";
 	"(3, 2)" -- "(3, 3)";
-	"(3, 4)"	[tile="Tile(row=3, col=4, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 4)"	[tile="Tile(row=3, col=4, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
-	"(4, 0)"	[tile="Tile(row=4, col=0, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 5)"	[tile="Tile(row=3, col=5, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(4, 1)"	[tile="Tile(row=4, col=1, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 4)" -- "(3, 5)";
+	"(4, 4)"	[tile="Tile(row=4, col=4, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(4, 2)"	[tile="Tile(row=4, col=2, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 4)" -- "(4, 4)";
+	"(3, 6)"	[tile="Tile(row=3, col=6, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(4, 3)"	[tile="Tile(row=4, col=3, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 5)" -- "(3, 6)";
+	"(3, 7)"	[tile="Tile(row=3, col=7, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
 start_tile=False)"];
-	"(4, 4)"	[tile="Tile(row=4, col=4, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+	"(3, 6)" -- "(3, 7)";
+	"(4, 7)"	[tile="Tile(row=4, col=7, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 7)" -- "(4, 7)";
+	"(4, 8)"	[tile="Tile(row=4, col=8, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 8)" -- "(4, 8)";
+	"(4, 9)"	[tile="Tile(row=4, col=9, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 9)" -- "(4, 9)";
+	"(3, 10)" -- "(3, 11)";
+	"(3, 12)" -- "(3, 13)";
+	"(3, 14)"	[tile="Tile(row=3, col=14, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 15)"	[tile="Tile(row=3, col=15, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 16)"	[tile="Tile(row=3, col=16, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 15)" -- "(3, 16)";
+	"(4, 15)"	[tile="Tile(row=4, col=15, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 15)" -- "(4, 15)";
+	"(4, 16)"	[tile="Tile(row=4, col=16, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 16)" -- "(4, 16)";
+	"(3, 17)"	[tile="Tile(row=3, col=17, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 17)" -- "(3, 18)";
+	"(4, 17)"	[tile="Tile(row=4, col=17, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(3, 17)" -- "(4, 17)";
+	"(3, 19)"	[tile="Tile(row=3, col=19, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 1)"	[tile="Tile(row=4, col=1, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 0)" -- "(4, 1)";
+	"(4, 2)"	[tile="Tile(row=4, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 1)" -- "(4, 2)";
+	"(4, 3)"	[tile="Tile(row=4, col=3, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 2)" -- "(4, 3)";
+	"(4, 3)" -- "(4, 4)";
+	"(4, 5)"	[tile="Tile(row=4, col=5, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 6)"	[tile="Tile(row=4, col=6, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 5)" -- "(4, 6)";
+	"(5, 5)"	[tile="Tile(row=5, col=5, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 5)" -- "(5, 5)";
+	"(4, 6)" -- "(4, 7)";
+	"(4, 8)" -- "(4, 9)";
+	"(4, 10)"	[tile="Tile(row=4, col=10, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+start_tile=False)"];
+	"(4, 11)"	[tile="Tile(row=4, col=11, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 12)"	[tile="Tile(row=4, col=12, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 13)"	[tile="Tile(row=4, col=13, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 14)"	[tile="Tile(row=4, col=14, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 14)" -- "(4, 15)";
+	"(5, 14)"	[tile="Tile(row=5, col=14, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 14)" -- "(5, 14)";
+	"(4, 16)" -- "(4, 17)";
+	"(4, 18)"	[tile="Tile(row=4, col=18, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 19)"	[tile="Tile(row=4, col=19, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 19)"	[tile="Tile(row=5, col=19, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(4, 19)" -- "(5, 19)";
+	"(5, 0)"	[tile="Tile(row=5, col=0, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 0)"	[tile="Tile(row=6, col=0, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 0)" -- "(6, 0)";
+	"(5, 1)"	[tile="Tile(row=5, col=1, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 2)"	[tile="Tile(row=5, col=2, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 3)"	[tile="Tile(row=5, col=3, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 4)"	[tile="Tile(row=5, col=4, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 3)" -- "(5, 4)";
+	"(6, 3)"	[tile="Tile(row=6, col=3, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 3)" -- "(6, 3)";
+	"(5, 4)" -- "(5, 5)";
+	"(5, 6)"	[tile="Tile(row=5, col=6, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 7)"	[tile="Tile(row=5, col=7, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 6)" -- "(5, 7)";
+	"(6, 6)"	[tile="Tile(row=6, col=6, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 6)" -- "(6, 6)";
+	"(5, 8)"	[tile="Tile(row=5, col=8, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 7)" -- "(5, 8)";
+	"(5, 9)"	[tile="Tile(row=5, col=9, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 8)" -- "(5, 9)";
+	"(5, 10)"	[tile="Tile(row=5, col=10, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 9)" -- "(5, 10)";
+	"(6, 10)"	[tile="Tile(row=6, col=10, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 10)" -- "(6, 10)";
+	"(5, 11)"	[tile="Tile(row=5, col=11, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 12)"	[tile="Tile(row=5, col=12, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 11)" -- "(5, 12)";
+	"(5, 13)"	[tile="Tile(row=5, col=13, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 15)"	[tile="Tile(row=5, col=15, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 14)" -- "(5, 15)";
+	"(6, 15)"	[tile="Tile(row=6, col=15, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 15)" -- "(6, 15)";
+	"(5, 16)"	[tile="Tile(row=5, col=16, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 17)"	[tile="Tile(row=5, col=17, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(5, 18)"	[tile="Tile(row=5, col=18, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 1)"	[tile="Tile(row=6, col=1, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 2)"	[tile="Tile(row=6, col=2, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 2)" -- "(6, 3)";
+	"(7, 2)"	[tile="Tile(row=7, col=2, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 2)" -- "(7, 2)";
+	"(6, 4)"	[tile="Tile(row=6, col=4, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 5)"	[tile="Tile(row=6, col=5, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 4)" -- "(6, 5)";
+	"(7, 4)"	[tile="Tile(row=7, col=4, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 4)" -- "(7, 4)";
+	"(7, 5)"	[tile="Tile(row=7, col=5, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 5)" -- "(7, 5)";
+	"(6, 7)"	[tile="Tile(row=6, col=7, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 6)" -- "(6, 7)";
+	"(7, 7)"	[tile="Tile(row=7, col=7, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 7)" -- "(7, 7)";
+	"(6, 8)"	[tile="Tile(row=6, col=8, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 9)"	[tile="Tile(row=6, col=9, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 8)" -- "(6, 9)";
+	"(7, 8)"	[tile="Tile(row=7, col=8, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 8)" -- "(7, 8)";
+	"(6, 9)" -- "(6, 10)";
+	"(6, 11)"	[tile="Tile(row=6, col=11, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 12)"	[tile="Tile(row=6, col=12, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 11)" -- "(6, 12)";
+	"(7, 11)"	[tile="Tile(row=7, col=11, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 11)" -- "(7, 11)";
+	"(7, 12)"	[tile="Tile(row=7, col=12, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 12)" -- "(7, 12)";
+	"(6, 13)"	[tile="Tile(row=6, col=13, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 14)"	[tile="Tile(row=6, col=14, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 16)"	[tile="Tile(row=6, col=16, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 15)" -- "(6, 16)";
+	"(6, 17)"	[tile="Tile(row=6, col=17, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 16)" -- "(6, 17)";
+	"(6, 18)"	[tile="Tile(row=6, col=18, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 17)" -- "(6, 18)";
+	"(6, 19)"	[tile="Tile(row=6, col=19, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 18)" -- "(6, 19)";
+	"(7, 19)"	[tile="Tile(row=7, col=19, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(6, 19)" -- "(7, 19)";
+	"(7, 0)"	[tile="Tile(row=7, col=0, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 0)"	[tile="Tile(row=8, col=0, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 0)" -- "(8, 0)";
+	"(7, 1)"	[tile="Tile(row=7, col=1, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 3)"	[tile="Tile(row=7, col=3, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 2)" -- "(7, 3)";
+	"(7, 3)" -- "(7, 4)";
+	"(7, 6)"	[tile="Tile(row=7, col=6, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 5)" -- "(7, 6)";
+	"(8, 6)"	[tile="Tile(row=8, col=6, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 6)" -- "(8, 6)";
+	"(8, 7)"	[tile="Tile(row=8, col=7, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 7)" -- "(8, 7)";
+	"(8, 8)"	[tile="Tile(row=8, col=8, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 8)" -- "(8, 8)";
+	"(7, 9)"	[tile="Tile(row=7, col=9, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 10)"	[tile="Tile(row=7, col=10, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 9)" -- "(7, 10)";
+	"(8, 9)"	[tile="Tile(row=8, col=9, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 9)" -- "(8, 9)";
+	"(8, 10)"	[tile="Tile(row=8, col=10, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 10)" -- "(8, 10)";
+	"(8, 11)"	[tile="Tile(row=8, col=11, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 11)" -- "(8, 11)";
+	"(7, 13)"	[tile="Tile(row=7, col=13, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 12)" -- "(7, 13)";
+	"(8, 13)"	[tile="Tile(row=8, col=13, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 13)" -- "(8, 13)";
+	"(7, 14)"	[tile="Tile(row=7, col=14, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 15)"	[tile="Tile(row=7, col=15, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 14)" -- "(7, 15)";
+	"(8, 14)"	[tile="Tile(row=8, col=14, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 14)" -- "(8, 14)";
+	"(7, 16)"	[tile="Tile(row=7, col=16, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 15)" -- "(7, 16)";
+	"(8, 16)"	[tile="Tile(row=8, col=16, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 16)" -- "(8, 16)";
+	"(7, 17)"	[tile="Tile(row=7, col=17, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 18)"	[tile="Tile(row=7, col=18, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 17)" -- "(7, 18)";
+	"(8, 17)"	[tile="Tile(row=8, col=17, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 17)" -- "(8, 17)";
+	"(8, 18)"	[tile="Tile(row=8, col=18, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 18)" -- "(8, 18)";
+	"(8, 19)"	[tile="Tile(row=8, col=19, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(7, 19)" -- "(8, 19)";
+	"(8, 1)"	[tile="Tile(row=8, col=1, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+start_tile=False)"];
+	"(8, 2)"	[tile="Tile(row=8, col=2, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 3)"	[tile="Tile(row=8, col=3, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 2)" -- "(8, 3)";
+	"(9, 3)"	[tile="Tile(row=9, col=3, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 3)" -- "(9, 3)";
+	"(8, 4)"	[tile="Tile(row=8, col=4, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 5)"	[tile="Tile(row=8, col=5, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 5)" -- "(8, 6)";
+	"(9, 5)"	[tile="Tile(row=9, col=5, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 5)" -- "(9, 5)";
+	"(9, 7)"	[tile="Tile(row=9, col=7, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 7)" -- "(9, 7)";
+	"(9, 8)"	[tile="Tile(row=9, col=8, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 8)" -- "(9, 8)";
+	"(9, 9)"	[tile="Tile(row=9, col=9, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 9)" -- "(9, 9)";
+	"(9, 10)"	[tile="Tile(row=9, col=10, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 10)" -- "(9, 10)";
+	"(9, 11)"	[tile="Tile(row=9, col=11, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 11)" -- "(9, 11)";
+	"(8, 12)"	[tile="Tile(row=8, col=12, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 12)" -- "(8, 13)";
+	"(9, 12)"	[tile="Tile(row=9, col=12, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 12)" -- "(9, 12)";
+	"(8, 15)"	[tile="Tile(row=8, col=15, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 14)" -- "(8, 15)";
+	"(9, 15)"	[tile="Tile(row=9, col=15, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 15)" -- "(9, 15)";
+	"(9, 16)"	[tile="Tile(row=9, col=16, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 16)" -- "(9, 16)";
+	"(9, 17)"	[tile="Tile(row=9, col=17, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(8, 17)" -- "(9, 17)";
+	"(8, 18)" -- "(8, 19)";
+	"(9, 0)"	[tile="Tile(row=9, col=0, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 1)"	[tile="Tile(row=9, col=1, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 0)" -- "(9, 1)";
+	"(9, 2)"	[tile="Tile(row=9, col=2, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 4)"	[tile="Tile(row=9, col=4, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 3)" -- "(9, 4)";
+	"(9, 6)"	[tile="Tile(row=9, col=6, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 5)" -- "(9, 6)";
+	"(9, 6)" -- "(9, 7)";
+	"(9, 8)" -- "(9, 9)";
+	"(9, 10)" -- "(9, 11)";
+	"(9, 13)"	[tile="Tile(row=9, col=13, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 12)" -- "(9, 13)";
+	"(9, 14)"	[tile="Tile(row=9, col=14, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), is_not_dot=True, \
+start_tile=False)"];
+	"(9, 13)" -- "(9, 14)";
+	"(9, 14)" -- "(9, 15)";
+	"(9, 16)" -- "(9, 17)";
+	"(9, 18)"	[tile="Tile(row=9, col=18, pipe=Pipe(name='.', connections=Connections(north=False, south=False, east=False, west=False)), is_not_dot=False, \
+start_tile=False)"];
+	"(9, 19)"	[tile="Tile(row=9, col=19, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), is_not_dot=True, \
 start_tile=False)"];
 }

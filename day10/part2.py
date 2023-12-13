@@ -2,6 +2,9 @@ from __future__ import annotations
 import networkx as nx
 import itertools
 import re
+import numpy as np
+import matplotlib.pyplot as plt
+from shapely import Polygon, Point
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple, NewType
@@ -212,23 +215,27 @@ def connect_pipes_in_graph(G: nx.Graph, tiles: List[Tile]) -> nx.Graph:
 
 
 if __name__ == "__main__":
-    lines = read_input(Path("inputs/part1/test_simple_square_loop_only.txt"))
+    # lines = read_input(Path("inputs/part1/test_simple_square_loop_only.txt"))
     # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop.txt"))
+    # lines = read_input(Path("inputs/part2/test_input_4_tiles_in_loop_squeeze_past.txt"))
     # lines = read_input(Path("inputs/part2/test_input_8_tiles_in_loop.txt"))
     # lines = read_input(Path("inputs/part2/test_input_10_tiles_in_loop.txt"))
-    # lines = read_input(Path("inputs/input.txt"))
-    tiles = parse_tiles(lines)
-    # ic(tiles)
+    lines = read_input(Path("inputs/input.txt"))
 
+    tiles = parse_tiles(lines)
     G = build_graph(tiles)
 
     start_tile = determine_start_tile(G)
     G.add_node((start_tile.row, start_tile.col), tile=start_tile)
     connect_pipes_in_graph(G, tiles)
     cycle = nx.find_cycle(G, source=(start_tile.row, start_tile.col))
-    # ic(cycle)
-    pprint(str(G))
-    max_distance = len(cycle) // 2
-    print(max_distance)
 
-    nx.drawing.nx_agraph.write_dot(G, "tiles.dot")
+    polygon = Polygon([vertice[0] for vertice in cycle])
+    # points = [Point(tile.row, tile.col) for tile in tiles if tile.is_not_dot is False]
+    points = [Point(tile.row, tile.col) for tile in tiles]
+    # dots_within_polygon = [point for point in points if point.within(polygon)]
+    tiles_within_polygon = [point for point in points if point.within(polygon)]
+
+    ic(len(tiles_within_polygon))  # correct answer for part 2: 281 tiles within polygon
+
+    # nx.drawing.nx_agraph.write_dot(G, "tiles.dot")

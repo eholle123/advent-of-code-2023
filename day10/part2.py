@@ -110,12 +110,6 @@ class Pipe:
 
 
 @dataclass
-class Dot:
-    name: str
-    is_inside_loop: bool = False
-
-
-@dataclass
 class Tile:
     row: int
     col: int  # things that don't have a default have to go above things that do

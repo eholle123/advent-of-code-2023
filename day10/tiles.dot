@@ -1,0 +1,10 @@
+strict graph "" {
+	"(1, 1)"	[tile="Tile(row=1, col=1, pipe=Pipe(name='F', connections=Connections(north=False, south=True, east=True, west=False)), start_tile=True)"];
+	"(1, 2)"	[tile="Tile(row=1, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), start_tile=False)"];
+	"(1, 3)"	[tile="Tile(row=1, col=3, pipe=Pipe(name='7', connections=Connections(north=False, south=True, east=False, west=True)), start_tile=False)"];
+	"(2, 1)"	[tile="Tile(row=2, col=1, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), start_tile=False)"];
+	"(2, 3)"	[tile="Tile(row=2, col=3, pipe=Pipe(name='|', connections=Connections(north=True, south=True, east=False, west=False)), start_tile=False)"];
+	"(3, 1)"	[tile="Tile(row=3, col=1, pipe=Pipe(name='L', connections=Connections(north=True, south=False, east=True, west=False)), start_tile=False)"];
+	"(3, 2)"	[tile="Tile(row=3, col=2, pipe=Pipe(name='-', connections=Connections(north=False, south=False, east=True, west=True)), start_tile=False)"];
+	"(3, 3)"	[tile="Tile(row=3, col=3, pipe=Pipe(name='J', connections=Connections(north=True, south=False, east=False, west=True)), start_tile=False)"];
+}

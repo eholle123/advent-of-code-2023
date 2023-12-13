@@ -1,3 +1,4 @@
+from __future__ import annotations
 import networkx as nx
 import itertools
 import re
@@ -7,7 +8,7 @@ from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
 from functools import cmp_to_key
 from math import lcm
-
+from icecream import ic
 
 """
 | is a vertical pipe connecting north and south.
@@ -21,9 +22,6 @@ S is the starting position of the animal; there is a pipe on this tile,
     but your sketch doesn't show what shape the pipe has.
 """
 
-# cardinal_directions = ['north', 'south', 'east', 'west']
-# NORTH = re.fullmatch(r"north")
-
 pipe_types = {"|": {"north": True, "east": False, "south": True, "west": False},
                 "-": {"north": False, "east": True, "south": False, "west": True},
                 "L": {"north": True, "east": True, "south": False, "west": False},
@@ -31,7 +29,8 @@ pipe_types = {"|": {"north": True, "east": False, "south": True, "west": False},
                 "7": {"north": False, "east": False, "south": True, "west": True},
                 "F": {"north": False, "east": True, "south": True, "west": False},
                 # ".": {"north": False, "east": False, "south": False, "west": False},
-                "S": {"north": True, "east": True, "south": True, "west": True}}
+                # "S": {"north": True, "east": True, "south": True, "west": True}
+                }
 """
 "|" can connect to:
     only pipes with same col num:
@@ -86,34 +85,63 @@ pipe_types = {"|": {"north": True, "east": False, "south": True, "west": False},
     if all("S".values):
         try every shape?
 """
-# tile_types = { pipe_types: 'pipe',
-#                 '.': 'ground',
-#                 'S': 'starting position'}
+@dataclass
+class Connections:
+    north: bool
+    south: bool
+    east: bool
+    west: bool
 
-# @dataclass
-# class WhichCardinals
+    @staticmethod
+    def parse(s: str) -> Optional[Connections]:
+        if (cardinals := pipe_types.get(s)):
+            return Connections(**cardinals)
+        
+    def determine_pipe_name(self) -> str:
+        if all([self.north == True, self.south == True, self.east == False, self.west == False]):
+            return "|"
+        if all([self.north == False, self.south == False, self.east == True, self.west == True]):
+            return "-"
+        if all([self.north == True, self.south == False, self.east == True, self.west == False]):
+            return "L"
+        if all([self.north == True, self.south == False, self.east == False, self.west == True]):
+            return "J"
+        if all([self.north == False, self.south == True, self.east == False, self.west == True]):
+            return "7"
+        if all([self.north == False, self.south == True, self.east == True, self.west == False]):
+            return "F"
+        raise ValueError("Cannot determine pipe name for {self}.")
+
 
 @dataclass
 class Pipe:
     name: str
-    shape: Dict[str, bool]
-    # north: bool
-    # south: bool
-    # east: bool
-    # west: bool
+    connections: Connections
 
-    # def connects(self, pipe_text: str) -> str:
+    def set_pipe_name(self: Pipe) -> None:
+        connections = self.connections
+        if all([connections.north == True, connections.south == True, connections.east == False, connections.west == False]):
+            self.name = "|"
+        if all([connections.north == False, connections.south == False, connections.east == True, connections.west == True]):
+            self.name = "-"
+        if all([connections.north == True, connections.south == False, connections.east == True, connections.west == False]):
+            self.name = "L"
+        if all([connections.north == True, connections.south == False, connections.east == False, connections.west == True]):
+            self.name = "J"
+        if all([connections.north == False, connections.south == True, connections.east == False, connections.west == True]):
+            self.name = "7"
+        if all([connections.north == False, connections.south == True, connections.east == True, connections.west == False]):
+            self.name = "F"
+
+        
         
 
 @dataclass
 class Tile:
-    pipe: Pipe
     row: int
-    col: int
-
-    # connects: 
-    # steps_from_S: Optional[int]
-
+    col: int #things that don't have a default have to go above things that do
+    pipe: Optional[Pipe] = None 
+    start_tile: bool = False
 
 def read_input(input_file: Path) -> List[str]:
     with input_file.open("r") as f:
@@ -125,26 +153,69 @@ def parse_tiles(lines: List[str]) -> List[Tile]:
     tiles = []
     for row, line in enumerate(lines):
         for col, l in enumerate(line):
-            if l in pipe_types.keys():
-                tile = Tile(pipe=Pipe(name=l, shape=pipe_types[l]), row=row, col=col) 
+            if (connections := Connections.parse(l)):
+                tile = Tile(pipe=Pipe(name=l, connections=connections), row=row, col=col) 
                 tiles.append(tile)
-        # pprint(tiles)
+            if l == "S":
+                tile = Tile(row=row, col=col, start_tile=True)
+                tiles.append(tile)
     return tiles
-
-
-
 
 def build_graph(tiles: List[Tile]) -> nx.classes.graph.Graph:
     G = nx.Graph()
     for tile in tiles:
-        G.add_node(tile)
-    # for tile in tiles:
-    #     G.add_edge(node.name, network[node.left].name)
-    #     G.add_edge(node.name, network[node.right].name)
+        G.add_node((tile.row, tile.col), tile=tile)
     return G
+
+def determine_start_tile(graph: nx.Graph) -> Tile:
+    start_node, start_tile = [
+        (node, data["tile"])
+        for node, data in graph.nodes.items()
+        if data["tile"].start_tile
+    ][0]
+
+    connections = Connections(north=False, south=False, east=False, west=False)
+    position_north = (start_node[0] - 1, start_node[1])
+    position_south = (start_node[0] + 1, start_node[1])
+    position_east = (start_node[0], start_node[1] + 1)
+    position_west = (start_node[0], start_node[1] - 1)
+
+    if (north_node_data := graph.nodes.get(position_north)):
+        if (north_pipe := north_node_data["tile"].pipe):
+            if north_pipe.connections.south:
+                connections.north = True
+    if (south_node_data := graph.nodes.get(position_south)):
+        if (south_pipe := south_node_data["tile"].pipe):
+            if south_pipe.connections.north:
+                connections.south = True
+    if (east_node_data := graph.nodes.get(position_east)):
+        if (east_tile := east_node_data["tile"].pipe):
+            if east_tile.connections.west:
+                connections.east = True
+    if (west_node_data := graph.nodes.get(position_west)):
+        if (west_tile := west_node_data["tile"].pipe):
+            if west_tile.connections.east:
+                connections.west = True
+    
+    pipe_name = connections.determine_pipe_name()
+    start_pipe = Pipe(name=pipe_name, connections=connections)
+    start_tile = Tile(row=start_node[0], col=start_node[1], pipe=start_pipe, start_tile=True)
+    return start_tile
+
 
 if __name__ == "__main__":
     lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop_only.txt"))
+    # lines = read_input(Path("inputs/finding_loop_tests/test_simple_square_loop.txt"))
+    # lines = read_input(Path("inputs/finding_loop_tests/test_complex_loop.txt"))
     # lines = read_input(Path("inputs/input.txt"))
     tiles = parse_tiles(lines)
-    pprint(tiles)
+    # pprint(tiles)
+
+    G = build_graph(tiles)
+    
+    start_tile = determine_start_tile(G)
+    print(start_tile)
+    G.add_node((start_tile.row, start_tile.col), tile=start_tile)
+    print(G)
+    nx.drawing.nx_agraph.write_dot(G, "tiles.dot")
+

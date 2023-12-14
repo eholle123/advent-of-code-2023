@@ -1,20 +1,40 @@
+from __future__ import annotations
+import networkx as nx
+import itertools
+import re
+import numpy as np
+import matplotlib.pyplot as plt
+import time
+from shapely import Polygon, Point
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple, NewType
 from pprint import pprint
+from functools import cmp_to_key
+from math import lcm
+from icecream import ic
 
+@dataclass
+class Destination_Range:
+    destination_start: int
+    destination_end: int
+
+@dataclass
+class Source_Range:
+    source_start: int
+    source_end: int
 
 @dataclass
 class Range_Map:
-    destination_start: int
-    source_start: int
-    range_length: int
+    destination_ranges: List[Destination_Range]
+    source_ranges: List[Source_Range]
+    range_length: List[int]
 
 
-@dataclass
-class Map:
-    map_name: "str"
-    range_maps: List[Range_Map]
+# @dataclass
+# class Map:
+#     map_name: "str"
+#     range_maps: Range_Maps
 
 
 def read_input(input_file: Path) -> List[str]:
@@ -26,11 +46,15 @@ def read_input(input_file: Path) -> List[str]:
 def remove_blanks(lines: List[str]) -> List[str]:
     return [line for line in lines if line]
 
+def parse_range_map_text(lines: List[str]) -> List[List[str]]:
+    
 
-def parse_range_map(line: str) -> Range_Map:
+def parse_range_map(lines: List[str]) -> Range_Map:
     [d_start, s_start, r_length] = parse_numbers(line, False)
     return Range_Map(
-        destination_start=d_start, source_start=s_start, range_length=r_length
+        Destination_Range(destination_start=d_start, destination_end=(d_start+r_length)), 
+        Source_Range(source_start=s_start, source_end=(s_start+r_length)),
+        range_length=r_length
     )
 
 
@@ -54,7 +78,7 @@ def parse_seed_ranges(line: str) -> List[Tuple[int,int]]:
 def make_seed_range_tuple(parsed_seeds: List[int]) -> List[Tuple[int,int]]:
     seed_range_tuples = []
     for i in range(0,(len(parsed_seeds)),2): 
-        seed_range_tuples.append(tuple([parsed_seeds[i],parsed_seeds[i+1]]))
+        seed_range_tuples.append(tuple([parsed_seeds[i], parsed_seeds[i] + parsed_seeds[i+1]]))
     return seed_range_tuples
 
 def seed_range_to_seeds(seed_range: Tuple[int,int]) -> List[int]:
@@ -98,16 +122,39 @@ def map_sources_to_destinations(seeds: List[int], list_of_maps: List[Map]) -> Li
         seeds = mapped_seeds
     return seeds
 
+def temperature_to_location(temperature_to_humidity: List[Range_Map], humidity_to_location: List[Range_Map]) -> List[Range_Map]:
+    # returns a map from temperature_to_location
+    R_map_current = temperature_to_humidity
+    R_map_next = humidity_to_location
+
+    # destinations from current map are input for next map
+    # want sources from current map to map to destinations for next map
+    # current_destinations = []
+    # for range_map in R_map_current:
+    #     current_destinations.append(range_map.destination_range)
+    # current_sources = []
+    # for range_map in R_map_current:
+    #     current_sources.append(range_map.source_range)
+    # next_destinations = []
+    # for range_map in R_map_next:
+    #     next_destinations.append(range_map.destination_range)
+    
+    
+
+    pass
+
 
 if __name__ == "__main__":
-    lines = remove_blanks(read_input(Path("inputs/input.txt")))
+    lines = remove_blanks(read_input(Path("inputs/test_input_yields_35.txt")))
     list_of_maps = parse_maps_data(lines[1:])
-    seed_group1 = parse_seed_ranges(lines[0])
-    seeds_groups = []
-    for seed_range in parse_seed_ranges(lines[0]):
-        seed_group1 = seed_range_to_seeds(seed_range)
-        print(seed_group1)
-        break
+    ic(list_of_maps)
+    seed_groups = parse_seed_ranges(lines[0])
+    ic(seed_groups)
+    # seeds_groups = []
+    # for seed_range in parse_seed_ranges(lines[0]):
+    #     seed_group1 = seed_range_to_seeds(seed_range)
+    #     print(seed_group1)
+    #     break
     #     seeds_groups.append(seed_range_to_seeds(seed_range))
     # for seeds_group in seeds_groups:
     #     map_seeds_to_locations = map_sources_to_destinations(seeds_group, list_of_maps)
@@ -115,3 +162,9 @@ if __name__ == "__main__":
     # pprint(list_of_maps)
     # pprint(seeds)
     # pprint(min(map_seeds_to_locations))
+
+    for seed_group in seed_groups:
+        for range_maps in list_of_maps:
+            if range_maps.source_range seed_group[0] 
+
+

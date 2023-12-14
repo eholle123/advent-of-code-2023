@@ -1,25 +1,8 @@
 from __future__ import annotations
-import networkx as nx
-import itertools
-import re
-import numpy as np
-import matplotlib.pyplot as plt
 import time
-from shapely import Polygon, Point, MultiPoint
-from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Dict, Tuple, NewType
-from pprint import pprint
-from functools import cmp_to_key
-from math import lcm
+from typing import List
 from icecream import ic
-
-
-# @dataclass
-# class Cube:
-#     row: int
-#     col: int
-#     spheres_before: int
 
 
 def read_input(input_file: Path) -> List[str]:
@@ -77,9 +60,6 @@ if __name__ == "__main__":
 
     # lines = read_input(Path("inputs/test_input_yields_136.txt"))
     lines = read_input(Path("inputs/input.txt"))
-    # ic(lines)
-    lines_reversed = list(lines.__reversed__())
-    # ic(transpose_lines(lines))
 
     transposed_lines = transpose_lines(lines)
     rolled_rocks_lines = []
@@ -88,18 +68,15 @@ if __name__ == "__main__":
         rolled_row = roll_rocks_by_col(row)
         rolled_rocks_lines.append(rolled_row)
     lengths = [len(row) for row in rolled_rocks_lines]
-    # ic(rolled_rocks_lines)
-    # ic(lengths)
-    # ic('.O...#O..O')
-    # ic(roll_rocks_by_col(transposed_lines[2]))
-    # ic(transpose_lines((rolled_rocks_lines)))
-
     rocks_rolled_north = transpose_lines(rolled_rocks_lines)
+
     load = get_load(rocks_rolled_north)
     ic(load)
-
-    print("--- %s seconds ---" % round((time.time() - start_time), 2))
 
     """
     Answer Part 1: 105623
     """
+
+    print("--- %s seconds ---" % round((time.time() - start_time), 2))
+
+    

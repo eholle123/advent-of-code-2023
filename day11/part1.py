@@ -114,4 +114,8 @@ if __name__ == "__main__":
         sum_distances += distance
     ic(sum_distances)
 
+    """
+    Correct answer for Part 1: 10885634
+    """
+
     print("--- %s seconds ---" % round((time.time() - start_time), 2))

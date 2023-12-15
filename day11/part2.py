@@ -137,6 +137,9 @@ if __name__ == "__main__":
     sum_distances = 0
     for distance in galaxy_pair_distances.values():
         sum_distances += distance
-    ic(sum_distances)  # Part 2 answer: 707505470642
+    ic(sum_distances)  
+    """
+    Correct answer for Part 2: 707505470642
+    """
 
     print("--- %s seconds ---" % round((time.time() - start_time), 2))

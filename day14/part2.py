@@ -36,7 +36,9 @@ def transpose_lines(lines: List[str] | List[List[str]]) -> List[str]:
         new_lines.append(new_row)
     return new_lines
 
-def roll_rocks_by_col(row: str) -> str:
+
+
+def roll_rocks_by_row(row: str) -> str:
     if "#" in row:
         cube_rocks = row.count("#")
         row_splices = row.split("#")
@@ -68,31 +70,70 @@ def get_load(rolled_rocks_lines: List[str]) -> int:
     return load
 
 
+def tilt(lines: List[str], 
+         north: bool = False,
+         west: bool = False, 
+         south: bool = False, 
+         east: bool = False
+         ) -> List[str]:
+    if north:
+        rotated_lines = transpose_lines(lines)
+    elif south:
+        rotated_lines = transpose_lines(list((lines).__reversed__()))
+        # ic(rotated_lines)
+    elif east: 
+        rotated_lines = [line[::-1] for line in lines]
+    else:
+        rotated_lines = list(lines)
+    rolled_rocks_lines = []
+    for row in rotated_lines:
+        rolled_row = roll_rocks_by_row(row)
+        rolled_rocks_lines.append(rolled_row)
+    if north:
+        return transpose_lines(rolled_rocks_lines)
+    elif south:
+        return list(transpose_lines(rolled_rocks_lines).__reversed__())
+    elif east:
+        return  [rl[::-1] for rl in rolled_rocks_lines]
+    else:
+        return rolled_rocks_lines
+
+
+def cycle(lines: List[str], number_of_cycles: int) -> List[str]:
+    for num_cycle in range(number_of_cycles):
+        rolled_north = tilt(lines, north=True)
+        # ic(rolled_north)
+        rolled_west = tilt(rolled_north, west=True)
+        # ic(rolled_west)
+        rolled_south = tilt(rolled_west, south=True)
+        # ic(rolled_south)
+        rolled_east = tilt(rolled_south, east=True)
+        # ic(rolled_east)
+        # if get_load(rolled_east) == get_load(lines):
+        #     return rolled_east
+        lines = rolled_east
+        # ic(lines)
+    return lines
+
+
 if __name__ == "__main__":
     start_time = time.time()
 
     # lines = read_input(Path("inputs/test_input_yields_136.txt"))
     lines = read_input(Path("inputs/input.txt"))
-    # ic(lines)
-    lines_reversed = list(lines.__reversed__())
+    ic(len(lines))
+    # lines_reversed = list(lines.__reversed__())
     # ic(transpose_lines(lines))
 
-    transposed_lines = transpose_lines(lines)
-    rolled_rocks_lines = []
-    round_rocks = 0
-    for row in transposed_lines:
-        rolled_row = roll_rocks_by_col(row)
-        rolled_rocks_lines.append(rolled_row)
-    lengths = [len(row) for row in rolled_rocks_lines]
-    # ic(rolled_rocks_lines)
-    # ic(lengths)
-    # ic('.O...#O..O')
-    # ic(roll_rocks_by_col(transposed_lines[2]))
-    # ic(transpose_lines((rolled_rocks_lines)))
+    cycle_rocks = cycle(lines, 1000) # it gave the right answer when cycle number was only 1000 and not 1000000000???
+    # ic(cycle_rocks)
 
-    rocks_rolled_north = transpose_lines(rolled_rocks_lines)
-    load = get_load(rocks_rolled_north)
+    load = get_load(cycle_rocks)
     ic(load)
+   
+    """
+    Correct answer for Part 2: 98029
+    """
 
     print("--- %s seconds ---" % round((time.time() - start_time), 2))
 

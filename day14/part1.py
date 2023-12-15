@@ -74,7 +74,7 @@ if __name__ == "__main__":
     ic(load)
 
     """
-    Answer Part 1: 105623
+    Correct answer for Part 1: 105623
     """
 
     print("--- %s seconds ---" % round((time.time() - start_time), 2))

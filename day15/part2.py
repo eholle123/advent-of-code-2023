@@ -20,15 +20,6 @@ class Lens:
     label: str
     focal_length: int
 
-@dataclass
-class LensRemover:
-    label: str
-
-# @dataclass
-# class Box:
-#     number: int
-#     lenses: List[Lens]
-
 Boxes = NewType("Boxes", Dict[int, List[Lens]])
 
 def read_input(input_file: Path) -> List[str]:
@@ -55,14 +46,7 @@ def get_boxes(lens_configuration_strs: List[str]) -> Boxes:
             lens_label, lens_focal_length = lens_text.split("=")
             box_number = get_box_number(lens_label)
             if (lenses := boxes.get(box_number)):
-                # lenses_with_label = [lens for lens in lenses if lens.label == lens_label]
-                # assert(len(lenses_with_label) == 1, f"found {len(lenses_with_label)} with label {lens_label}")
-
-                # if (lens := next((l for l in lenses if l.label == lens_label))):
                 if any([lens.label == lens_label for lens in lenses]):
-                    # if (lens_index := lenses.index([lens for lens in lenses if lens.label == lens_label])):
-                    # if (lens_index := [index for index, lens in enumerate(lenses) if lens.label == lens_label][0]):
-                    #     lenses[lens_index].focal_length = lens_focal_length
                     for index, lens in enumerate(lenses):
                         if lens.label == lens_label:
                             lenses[index].focal_length = int(lens_focal_length)
@@ -70,7 +54,6 @@ def get_boxes(lens_configuration_strs: List[str]) -> Boxes:
                             break
                 else:
                     lenses.append(Lens(label=lens_label, focal_length=int(lens_focal_length)))
-            # return Lens(label=lens_label, focal_length=int(lens_focal_length))
             else:
                 boxes[box_number] = [Lens(label=lens_label, focal_length=int(lens_focal_length))]
         else:
@@ -78,10 +61,6 @@ def get_boxes(lens_configuration_strs: List[str]) -> Boxes:
             box_number = get_box_number(lens_label)
             if (lenses := boxes.get(box_number)):
                 if any([lens.label == lens_label for lens in lenses]):
-                    # ic([index for index, lens in enumerate(lenses) if lens.label == lens_label])
-                    # ic(lenses)
-                    # ic(lenses.remove(lenses[0]))
-                    # ic(lenses.pop(0))
                     if len(lenses) == 1:
                         del boxes[box_number]
                     else:
@@ -90,9 +69,6 @@ def get_boxes(lens_configuration_strs: List[str]) -> Boxes:
                                 discard = lenses.pop(index)
                                 boxes[box_number] = lenses
                                 break
-        # ic(lens_text)
-        # ic(Boxes(boxes))
-        # print()
     return Boxes(boxes)
 
 
@@ -100,7 +76,6 @@ def calculate_focusing_power_of_box(box_number: int, lenses: List[Lens]) -> int:
     box_focusing_power = 0
     for i, lens in enumerate(lenses):
         box_focusing_power += (box_number + 1) * (i + 1) * (lens.focal_length)
-    # ic(box_focusing_power)
     return box_focusing_power
 
 def calculate_focusing_power(boxes: Boxes) -> int:
@@ -125,14 +100,6 @@ if __name__ == "__main__":
 
     focusing_power = calculate_focusing_power(boxes)
     ic(focusing_power)
-    # boxes = {}
-    # for i in range(256):
-    #     boxes[i] = []
-    # boxes = Boxes(boxes)
-    # ic(boxes)
-    # current_values = hashes_to_current_values(strs_to_hash)
-    # ic(current_values)
-    # ic(sum(current_values))
    
     """
     Correct answer for Part 2: 267372

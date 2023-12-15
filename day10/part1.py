@@ -217,4 +217,8 @@ if __name__ == "__main__":
     max_distance = len(cycle) // 2
     print(max_distance)
 
+    """
+    Correct answer for Part 1: 7107
+    """
+
     nx.drawing.nx_agraph.write_dot(G, "tiles.dot")

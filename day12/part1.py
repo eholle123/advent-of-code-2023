@@ -14,6 +14,7 @@ from functools import cmp_to_key
 from math import lcm
 from icecream import ic
 
+UNKNOWNS = re.compile(r"(\?+)")
 
 @dataclass
 class Spring:
@@ -32,7 +33,24 @@ def parse_line(line: str) -> Spring:
     return Spring(conditions=conditions, contiguous_group_of_damaged_springs=nums)
 
 
+def get_spring_condition_permutations(spring: Spring) -> int:
+    conditions_subs = (spring.conditions).split
+    res = UNKNOWNS.finditer(springs[3].conditions)
+    unknowns_groups = [r.group() for r in res]
+    if len(unknowns_groups) == 1:
+        
+
+    pass
+
+
 if __name__ == "__main__":
     lines = read_input(Path("inputs/test_input_sum_arrangement_counts_21.txt"))
     # lines = read_input(Path("inputs/input.txt"))
-    pprint(parse_line(lines[0]))
+    ic(lines)
+    springs = [parse_line(line) for line in lines]
+    ic(springs)
+    ic(UNKNOWNS.match(springs[0].conditions))
+    ic(UNKNOWNS.match(".??..??...?##."))
+
+    
+    # ic([''.join(c) for c in itertools.permutations(springs[0].conditions)])

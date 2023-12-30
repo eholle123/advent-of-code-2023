@@ -27,7 +27,6 @@ class Tile:
     name: str
     row: int
     col: int
-    # is_start: Optional[bool] = False
     is_stepped_plot: Optional[bool] = False
 
 Tiles = NewType("Tiles", Dict[str, List[Tile]])
@@ -35,7 +34,6 @@ Tiles = NewType("Tiles", Dict[str, List[Tile]])
 def read_input(input_file: Path) -> List[List[str]]:
     with input_file.open("r") as f:
         lines = f.readlines()
-    # lines = [[l for l in line.strip()] for line in lines]
     return [[l for l in line.strip()] for line in lines]
 
 def find_starting_tile(lines: List[List[str]]) -> List[int]:
@@ -45,11 +43,12 @@ def find_starting_tile(lines: List[List[str]]) -> List[int]:
                 return [row, col]
     return [0, 0]
 
-def parse_tiles(lines: List[List[str]], steps_to_take: int) -> List[Tile] | List[List[str]] | Dict[str, Dict[Tuple[int, int], bool]]:
+def parse_tiles(lines: List[List[str]], steps_to_take: int) -> Tiles:
     start_row, start_col = find_starting_tile(lines)
-    tiles = []
-    tile_plots = {}
-    possible_plots = {}
+    tiles = {}
+    tiles["."] = []
+    tiles["O"] = []
+    tiles["#"] = []
     tiles_list = lines
     row = 0
     flag = True
@@ -57,30 +56,38 @@ def parse_tiles(lines: List[List[str]], steps_to_take: int) -> List[Tile] | List
         col = 0
         for l in line:
             tile = Tile(name=l, row=row, col=col)
-            if tile.name == "S":
-                tile_plots["S"] = (row, col)
-            if flag:
-                manhatten = abs(start_row - row) + abs(start_col - col)
-                if (l == ".") and (manhatten <= steps_to_take):
-                    tiles_list[row][col] = "O"
-                    tile.name = "O"
-                    possible_plots[(row, col)] = False
-                flag = False
+            if l == "S":
+                tiles["S"] = Tile(name="S", row=start_row, col=start_col)
             else:
-                flag = True
-            tiles.append(tile)
+                if flag:
+                    manhatten = abs(start_row - row) + abs(start_col - col)
+                    if (l == ".") and (manhatten <= steps_to_take):
+                        tiles_list[row][col] = "O"
+                        tile.name = "O"
+                        tiles["O"].append(tile)
+                    flag = False
+                else:
+                    flag = True
+                if tile.name != "O":
+                    tiles[l].append(tile)
             col += 1
         row += 1
-    # ic(tiles_list)
-    return possible_plots
+    return Tiles(tiles)
 
 
 def is_stepped_plot(lines: List[List[str]], 
-                    possible_plots: Dict[str, Dict[Tuple[int, int], bool]],
+                    tiles: Tiles,
                     possible_plot: Tuple[int, int],
                     steps_to_take: int
-                    ) -> Dict[Tuple[int, int], bool]:
+                    ) -> Tiles:
+    steps = 0
+    s_tile = tiles["S"]
+    # while steps <= steps_to_take:
+    #     if 
+    #     steps = steps - 1
+
     
+    return tiles
     
 
 if __name__ == "__main__":
@@ -90,14 +97,14 @@ if __name__ == "__main__":
     # steps_to_take = 64
     lines = read_input(Path("inputs/test_input_6_steps_yields_16_plots.txt"))
     # lines = read_input(Path("inputs/input.txt"))
-    ic(lines)
+    # ic(lines)
 
-    ic(find_starting_tile(lines))
+    # ic(find_starting_tile(lines))
     tiles = parse_tiles(lines, steps_to_take)
-    ic(tiles)
+    # ic(tiles)
 
-    for possible_plot in tiles:
-        print(possible_plot)
+    # for possible_plot in tiles:
+    #     print(possible_plot)
 
 
     
